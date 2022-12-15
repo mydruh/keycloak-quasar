@@ -12,7 +12,8 @@ export default boot(({ app /* , store } */ }) => {
           // Do Something
         }
       }).catch(() => {
-        console.log("ERROR to refresh token")
+        alert("ERROR to refresh token")
+        keycloak.createLogoutUrl()
       })
     }, 6000)
   }
@@ -41,6 +42,15 @@ export default boot(({ app /* , store } */ }) => {
       }).catch((error) => {
       console.log("Auth ERROR", error)
     })
+
+    window.authRedirection = function () {
+      if (keycloak.authenticated == true) {
+        console.log("Good luck and work on page!!!")
+      } else {
+        console.log("You can't work on page!!!")
+        window.location.href = keycloak.createLogoutUrl()
+      }
+    }
 
     app.config.globalProperties.$keycloak = keycloak
     app.use(keycloak)

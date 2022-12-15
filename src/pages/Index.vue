@@ -20,6 +20,9 @@ export default defineComponent({
       username: this.$keycloak.tokenParsed.name
     }
   },
+  mounted () {
+    window.authRedirection()
+  },
   methods: {
     logout() {
       window.location.href = this.$keycloak.createLogoutUrl()
